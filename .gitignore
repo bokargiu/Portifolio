@@ -1,0 +1,107 @@
+# =========================
+# .NET / Visual Studio
+# =========================
+
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.userprefs
+
+.vs/
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+artifacts/
+publish/
+
+*.pdb
+*.obj
+*.log
+*.tmp
+
+# NuGet
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+
+# =========================
+# ASP.NET
+# =========================
+
+# NÃO versionar configurações que possuem segredos
+/Portifolio.Server/appsettings.json
+/Portifolio.Server/appsettings.Development.json
+
+# Se forem gerados localmente
+/Portifolio.Server/Dockerfile
+/.dockerignore
+/Portifolio.Server/docker-compose.yml
+
+# =========================
+# Node / Angular
+# =========================
+
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Angular
+/dist/
+/tmp/
+/out-tsc/
+/bazel-out/
+/.angular/cache/
+.angulartmp/
+
+# Angular coverage
+/coverage/
+
+# =========================
+# IDEs
+# =========================
+
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+.history/
+
+# =========================
+# Sass
+# =========================
+
+.sass-cache/
+
+# =========================
+# Sistema
+# =========================
+
+.DS_Store
+Thumbs.db
+
+# =========================
+# Outros
+# =========================
+
+connect.lock
+*.cache

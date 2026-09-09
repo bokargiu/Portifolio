@@ -1,0 +1,8 @@
+﻿namespace Portifolio.Server.DTOs.Users
+{
+    public class LoginDTO
+    {
+        public string Email { get; set; } = String.Empty;
+        public string Password { get; set; } = String.Empty;
+    }
+}

@@ -1,0 +1,347 @@
+@use '../../../styles.scss' as *;
+.content{
+    min-height: 300vh;
+    max-width: 100vw;
+    color: white;
+
+    h2{
+        font-size: 35px;
+        text-align: center;
+    }
+
+    header{
+        min-height: 21px;
+        height: 8%;
+        width: 100%;
+        max-width: 100vw;
+        position: fixed;
+        z-index: 1000;
+        transition: transform 0.3s ease;
+    }
+    .header{
+        transform: translateY(-100%);
+    }
+
+    .hero{
+        max-width: 100vw;
+        height: 200vh;
+        inset: 0;
+        position: absolute;
+        z-index: 0;
+        overflow: visible;
+        z-index: -1;
+        background: #16042348;
+        background: radial-gradient(circle,#1b042c79 0%, #16042348 90%, #00000042 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .texts{
+        text-align: center;
+        font-weight: bolder;
+        text-transform: uppercase;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        color: white;
+        z-index: 1;
+        text-shadow: 1px 1px 15px rgba(255, 255, 255, 0.199);
+
+        label{
+            font-size: 60px;
+            position: absolute;
+        }
+
+        label::before{
+            animation: typing 9s infinite;
+            content: '';
+        }
+        label::after{
+            border-right: 1px solid transparent;
+            animation: bar 0.5s linear infinite;
+            content: '';
+        }
+
+        @keyframes typing{
+            0%, 15%{
+                content: '';
+            }
+            22%{
+                content: 'B';
+            }
+            24%{
+                content: 'be';
+            }
+            26%{
+                content: 'bem';
+            }
+            28%{
+                content: 'bem ';
+            }
+            30%{
+                content: 'bem v';
+            }
+            32%{
+                content: 'bem vi';
+            }
+            34%{
+                content: 'bem vin';
+            }
+            36%{
+                content: 'bem vind';
+            }
+            38%{
+                content: 'bem vindo';
+            }
+            40%, 70%{
+                content: 'bem vindo!';
+            }
+            70.5%{
+                content: 'bem vindo';
+            }
+            71%{
+                content: 'bem vind';
+            }
+            71.5%{
+                content: 'bem vin';
+            }
+            72%{
+                content: 'bem vi';
+            }
+            72.5%{
+                content: 'bem v';
+            }
+            73%{
+                content: 'bem';
+            }
+            73.5%{
+                content: 'be';
+            }
+            74%, 100%{
+                content: '';
+            }
+        }
+        @keyframes bar{
+            0%, 100% {
+                border-right: 1px solid transparent;
+            }
+            50% {
+                border-right: 1px solid #c8c8c8a9;
+            }
+        }
+    }
+
+    .about-container{
+
+        z-index: 1;
+        height: 100vh;
+        align-items: end;
+        display: flex;
+        justify-content: center;
+
+        .about-me{
+            color: white;
+            height: 60vh;
+            width: 70vw;
+            border-radius: 10px 10px 0px 0px;
+            background-color: $background;
+            padding: 2vh 2vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            outline: 2px dashed rgba(18, 18, 18, 0.304);
+            outline-offset: -20px;
+
+            @media (max-width: 768px) {
+                width: 90vw;
+            }
+
+            img{
+                width: 150px;height: 150px;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 3px solid rgba(18, 18, 18, 0.304);
+            }
+
+            h3{
+                font-size: 24px;
+            }
+
+            p{
+                text-align: justify;
+                font-size: medium;
+                width: 60%;
+            }
+        }
+    }
+
+    .tecnologies-container{ 
+        width: calc(100% - 70px);
+        min-height: 40vh;
+
+        outline: 2px dashed rgba(18, 18, 18, 0.304);
+        outline-offset: -30px;
+
+        padding: 30px;
+        display: grid;
+
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+
+        .tecnologie-content{
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 55px;
+            text-shadow: 2px 2px 10px #ffffff35;
+            color: #ffffffdb;
+        }
+
+        .view-tecnologie{
+            position: absolute;
+            display: flex;
+            height: auto;
+            flex-direction: column;
+            align-items: center;
+            justify-content: start;
+            z-index: 1;
+            border-radius: 5px;
+            background-color: $background;
+            transform-origin: 0 0;
+            animation: view 1.5s ease-out forwards;
+
+            & > *{
+                visibility: hidden;
+                z-index: 2;
+                animation: surgir 0.7s 1.5s forwards;
+            }
+
+            &.left-up{
+                translate: -100% -100%;
+                transform-origin: right bottom;
+            }
+            &.left-down{
+                translate: -100% 0;
+                transform-origin: right top;
+            }
+            &.right-up{
+                transform-origin: left bottom;
+                translate: 0 -100%;
+
+            }
+            &.right-down{
+                transform-origin: left top;
+            }
+            &.center-up{
+                transform-origin: center bottom;
+                translate: -50% -100%;
+            }
+            &.center-down{
+                transform-origin: center top;
+                translate: -50% 0;
+            }
+
+            h2{
+                text-align: center;
+            }
+            p{
+                font-size: medium;
+                text-align: justify;
+                width: 30vw;
+                margin-top: 0px;
+                
+                @media (max-width: 768px) {
+                    width: 50vw;
+                }
+            }
+            i{
+                position: absolute;
+                color: #382d3d;
+                text-shadow: none;
+                z-index: 1;
+                text-align: center;
+                translate: 0 100%;
+                scale: 3;
+            }
+
+            @keyframes view {
+                0%{
+                    padding: 0;
+                    scale: 0 0.02;
+                    border-top: 40px solid rgb(179, 0, 255);
+                }
+                70%{
+                    border-top: 40px solid rgb(179, 0, 255);
+                    padding: 0;
+                    scale: 1 0.02;
+                }
+                70.1%{
+                    border: 5px dotted #151515a8;
+                }
+                100%{
+                    padding: 20px 40px;
+                    scale: 1 1;
+                    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.214);
+                    border: 5px dotted #151515a8;
+                }
+            }
+            @keyframes surgir {
+                0%{
+                    visibility: hidden;
+                }
+                100%{
+                    visibility: visible;
+                }
+            }
+        }
+    }
+
+    .Projects-container{
+        width: calc(100% - 80px);
+
+        outline: 2px dashed rgba(18, 18, 18, 0.304);
+        outline-offset: -30px;
+
+        padding: 40px;
+        display: grid;
+        gap: 20px;
+
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+
+        .project-content{
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.118);
+            border: #00000042 1px dashed;
+            border-radius: 5px;
+            height: 200px;
+
+            text-shadow: 2px 2px 10px #ffffff35;
+            color: #ffffffdb;
+
+            h3{
+                font-size: 24px;
+            }
+
+            .techs{
+                display: grid;
+                grid-template-columns: repeat(6, 1fr);
+                width: 70%;
+                gap: 5px;
+                i{
+                    text-align: center;
+                    color: #ffffffdb;
+                    font-size: 20px;
+                    height: 20px;
+                    z-index: 2;
+                }
+            }
+        }
+    }
+}

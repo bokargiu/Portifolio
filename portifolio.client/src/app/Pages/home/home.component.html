@@ -1,0 +1,58 @@
+<div #content class="content">
+    <header [class.header]="headerHidden" >
+        <app-header/>
+    </header>
+    <div #canvasContainer class="hero">
+    </div>
+    <div class="texts">
+        <label></label>
+    </div>
+
+    <div class="about-container">
+        <div class="about-me">
+            <img src="../../../assets/Erick Foto.jpeg" alt="">
+            <h3>Olá, me chamo Erick!</h3>
+            <p>Jovem, estudante de sistemas de informação na FURB, Desenvolvedor em C# e Angular. Focado em soluções web escaláveis, com conhecimento em APIs REST, MySQL, boas práticas, versionamento com Git e autenticação.</p>
+        </div>
+    </div>
+
+    <h2>Tecnologias</h2>
+    <div class="tecnologies-container">
+        @for (tecnologie of tecnologies; track tecnologie.id) {
+            <div class="tecnologie-content" (mouseleave)="tecnologie.show = false">
+                <i class="{{tecnologie.icon}}"
+                    (mouseenter)="expandeTech($event, tecnologie, $index)">
+                </i>
+                @if(tecnologie.show){
+
+                    <div class="view-tecnologie"
+                        [style.left.px]="tecnologie.x"
+                        [style.top.px]="tecnologie.y"
+                        [class]="tecnologie.expandTo"
+                        (mouseleave)="tecnologie.show = false">
+
+                        <h2>{{tecnologie.title}}</h2>
+                        <p>{{tecnologie.infos}}</p>
+                        <i [class]="tecnologie.id"></i>
+                    </div>
+                }
+            </div>
+
+        }
+    
+    </div>
+
+    <h2>Projetos</h2>
+    <div class="Projects-container">
+        @for (project of projects; track project.id) {
+            <div class="project-content">
+                <h3>{{project.name}}</h3>
+                <div class="techs">
+                    @for (tech of project.iconsTech; track $index) {
+                        <i [class]="tech"></i>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>
