@@ -1,0 +1,24 @@
+<div class="container">
+    <h2>Tecnologias</h2>
+    <div class="tecnologies-container">
+        @for (tecnologie of tecnologies; track tecnologie.id) {
+            <div class="tecnologie-content" (mouseleave)="tecnologie.show = false">
+                <i class="{{tecnologie.icon}}"
+                    (mouseenter)="expandeTech($event, tecnologie, $index)">
+                </i>
+                @if (tecnologie.show) {
+                    <div class="view-tecnologie"
+                        [style.left.px]="tecnologie.x"
+                        [style.top.px]="tecnologie.y"
+                        [class]="tecnologie.expandTo"
+                        (mouseleave)="tecnologie.show = false">
+
+                        <h2>{{tecnologie.title}}</h2>
+                        <p>{{tecnologie.infos}}</p>
+                        <i [class]="tecnologie.id"></i>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>

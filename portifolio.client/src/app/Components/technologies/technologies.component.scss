@@ -1,0 +1,139 @@
+@use '../../../styles.scss' as *;
+
+:host {
+    display: block;
+}
+
+.container{
+    h2{
+        margin-top: 10vh;
+        text-align: center;
+        font-size: 35px;
+    }
+    .tecnologies-container {
+        width: calc(100% - 70px);
+        min-height: 40vh;
+        outline: 2px dashed rgba(18, 18, 18, 0.304);
+        outline-offset: -30px;
+        padding: 30px;
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+
+        .tecnologie-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 55px;
+            text-shadow: 2px 2px 10px #ffffff35;
+            color: #ffffffdb;
+        }
+
+        .view-tecnologie {
+            position: absolute;
+            display: flex;
+            height: auto;
+            flex-direction: column;
+            align-items: center;
+            justify-content: start;
+            z-index: 1;
+            border-radius: 5px;
+            background-color: $background;
+            transform-origin: 0 0;
+            animation: view 1.5s ease-out forwards;
+
+            & > * {
+                visibility: hidden;
+                z-index: 2;
+                animation: surgir 0.7s 1.5s forwards;
+            }
+
+            &.left-up {
+                translate: -100% -100%;
+                transform-origin: right bottom;
+            }
+
+            &.left-down {
+                translate: -100% 0;
+                transform-origin: right top;
+            }
+
+            &.right-up {
+                transform-origin: left bottom;
+                translate: 0 -100%;
+            }
+
+            &.right-down {
+                transform-origin: left top;
+            }
+
+            &.center-up {
+                transform-origin: center bottom;
+                translate: -50% -100%;
+            }
+
+            &.center-down {
+                transform-origin: center top;
+                translate: -50% 0;
+            }
+
+            h2 {
+                text-align: center;
+                margin-top: 0px;
+                font-size: 35px;
+            }
+
+            p {
+                font-size: medium;
+                text-align: justify;
+                width: 30vw;
+                margin-top: 0px;
+
+                @media (max-width: 768px) {
+                    width: 50vw;
+                }
+            }
+
+            i {
+                position: absolute;
+                color: #382d3d;
+                text-shadow: none;
+                z-index: 1;
+                text-align: center;
+                translate: 0 100%;
+                scale: 3;
+            }
+
+            @keyframes view {
+                0% {
+                    padding: 0;
+                    scale: 0 0.02;
+                    border-top: 40px solid rgb(179, 0, 255);
+                }
+                70% {
+                    border-top: 40px solid rgb(179, 0, 255);
+                    padding: 0;
+                    scale: 1 0.02;
+                }
+                70.1% {
+                    border: 5px dotted #151515a8;
+                }
+                100% {
+                    padding: 20px 40px;
+                    scale: 1 1;
+                    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.214);
+                    border: 5px dotted #151515a8;
+                }
+            }
+
+            @keyframes surgir {
+                0% {
+                    visibility: hidden;
+                }
+                100% {
+                    visibility: visible;
+                }
+            }
+        }
+    }
+}
+

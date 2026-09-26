@@ -1,0 +1,167 @@
+@use '../../../styles.scss' as *;
+
+:host {
+    display: contents;
+}
+
+.hero {
+    max-width: 100vw;
+    height: 200vh;
+    inset: 0;
+    position: absolute;
+    z-index: 0;
+    overflow: visible;
+    z-index: -1;
+    background: #16042348;
+    background: radial-gradient(circle, #1b042c79 0%, #16042348 90%, #00000042 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.texts {
+    text-align: center;
+    font-weight: bolder;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: white;
+    z-index: 1;
+    text-shadow: 1px 1px 15px rgba(255, 255, 255, 0.199);
+
+    label {
+        font-size: 60px;
+        position: absolute;
+    }
+
+    label::before {
+        animation: typing 9s infinite;
+        content: '';
+    }
+
+    label::after {
+        border-right: 1px solid transparent;
+        animation: bar 0.5s linear infinite;
+        content: '';
+    }
+
+    @keyframes typing {
+        0%, 15% {
+            content: '';
+        }
+        22% {
+            content: 'B';
+        }
+        24% {
+            content: 'be';
+        }
+        26% {
+            content: 'bem';
+        }
+        28% {
+            content: 'bem ';
+        }
+        30% {
+            content: 'bem v';
+        }
+        32% {
+            content: 'bem vi';
+        }
+        34% {
+            content: 'bem vin';
+        }
+        36% {
+            content: 'bem vind';
+        }
+        38% {
+            content: 'bem vindo';
+        }
+        40%, 70% {
+            content: 'bem vindo!';
+        }
+        70.5% {
+            content: 'bem vindo';
+        }
+        71% {
+            content: 'bem vind';
+        }
+        71.5% {
+            content: 'bem vin';
+        }
+        72% {
+            content: 'bem vi';
+        }
+        72.5% {
+            content: 'bem v';
+        }
+        73% {
+            content: 'bem';
+        }
+        73.5% {
+            content: 'be';
+        }
+        74%, 100% {
+            content: '';
+        }
+    }
+
+    @keyframes bar {
+        0%, 100% {
+            border-right: 1px solid transparent;
+        }
+        50% {
+            border-right: 1px solid #c8c8c8a9;
+        }
+    }
+}
+
+.about-container {
+    z-index: 1;
+    height: 100vh;
+    align-items: end;
+    display: flex;
+    justify-content: center;
+
+    .about-me {
+        color: white;
+        height: 60vh;
+        width: 70vw;
+        border-radius: 10px 10px 0px 0px;
+        background-color: $background;
+        padding: 2vh 2vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        outline: 2px dashed rgba(18, 18, 18, 0.304);
+        outline-offset: -20px;
+
+        @media (max-width: 768px) {
+            width: 90vw;
+
+            p {
+                width: 100%;
+            }
+        }
+
+        img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(18, 18, 18, 0.304);
+        }
+
+        h3 {
+            font-size: 24px;
+        }
+
+        p {
+            text-align: justify;
+            font-size: medium;
+            width: 60%;
+        }
+    }
+}

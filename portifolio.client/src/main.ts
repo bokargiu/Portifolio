@@ -14,5 +14,5 @@ bootstrapApplication(AppComponent, {
   ]
 }).catch(err => console.error(err));
 
-export const api = "https://localhost:7297/api/";
+export const api = "/api/";
 

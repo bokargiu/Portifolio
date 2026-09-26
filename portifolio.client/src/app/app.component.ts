@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
@@ -13,7 +12,7 @@ import { RouterModule } from '@angular/router';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private http: HttpClient) {}
+  constructor() {}
 
   ngOnInit() {
   }

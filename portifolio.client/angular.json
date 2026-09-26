@@ -76,7 +76,11 @@
           },
           "defaultConfiguration": "development",
           "options": {
-            "port": 53554
+            "port": 53554,
+            "allowedHosts": [
+              "bokargiu.com.br",
+              "www.bokargiu.com.br"
+            ]
           }
         },
         "extract-i18n": {

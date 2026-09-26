@@ -35,19 +35,6 @@ publish/
 **/[Pp]ackages/*
 
 # =========================
-# ASP.NET
-# =========================
-
-# NÃO versionar configurações que possuem segredos
-/Portifolio.Server/appsettings.json
-/Portifolio.Server/appsettings.Development.json
-
-# Se forem gerados localmente
-/Portifolio.Server/Dockerfile
-/.dockerignore
-/Portifolio.Server/docker-compose.yml
-
-# =========================
 # Node / Angular
 # =========================
 
