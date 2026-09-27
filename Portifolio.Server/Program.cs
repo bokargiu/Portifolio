@@ -66,7 +66,7 @@ builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
-app.MapGet("/", () => "API está funcionando!");
+app.MapGet("/api/", () => "API está funcionando!");
 
 app.UseCors("AllowAll");
 app.UseDefaultFiles();
