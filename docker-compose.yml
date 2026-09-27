@@ -45,8 +45,8 @@ volumes:
     
 secrets:
   db-root-pw:
-    file: ./secrets/db-root-pw
+    file: ./Portifolio.Server/secrets/db-root-pw
   db-user-pw:
-    file: ./secrets/db-user-pw
+    file: ./Portifolio.Server/secrets/db-user-pw
   db-user:
-    file: ./secrets/db-user
+    file: ./Portifolio.Server/secrets/db-user
