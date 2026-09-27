@@ -2,8 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using Portifolio.Server.DTOs;
 using Portifolio.Server.DTOs.Users;
+using Portifolio.Server.Enums;
 using Portifolio.Server.Models;
 using Portifolio.Server.Services.AuthServices;
+using System.ComponentModel.DataAnnotations;
 
 namespace Portifolio.Server.Services.User_Services
 {
@@ -19,14 +21,24 @@ namespace Portifolio.Server.Services.User_Services
 
         public async Task<BaseResponse<User>> CreateUser(TemplateUser dto)
         {
-            if (dto == null)
+            if (dto == null || ValidPassword(dto.Password))
                 return new BaseResponse<User>(400, message: "Invalid user data.");
-            var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == dto.Email);
+
+            if (new EmailAddressAttribute().IsValid(dto.Name.Trim()))
+                return new BaseResponse<User>(400, message: "Name cannot be an email");
+
+            if (!new EmailAddressAttribute().IsValid(dto.Email.Trim()))
+                return new BaseResponse<User>(400, message: "This Email is not Valid");
+
+            var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == dto.Email.Trim() || u.Name == dto.Name.Trim());
+
             if (existingUser != null)
-                return new BaseResponse<User>(400, message: "A user with this email already exists.");
+                return new BaseResponse<User>(400, message: "A user with this email or name already exists.");
+
             var user = new User(true);
-            user.Email = dto.Email;
-            user.Name = dto.Name;
+            user.Email = dto.Email.Trim();
+            user.Name = dto.Name.Trim();
+            user.Type = TypeUser.User;
             user.Password = Argon2.Hash(dto.Password, timeCost: 5);
 
             _context.Users.Add(user);
@@ -36,10 +48,17 @@ namespace Portifolio.Server.Services.User_Services
 
         public async Task<BaseResponse<User>> Login(LoginDTO dto)
         {
-            if (string.IsNullOrEmpty(dto.Email) || string.IsNullOrEmpty(dto.Password))
-                return new BaseResponse<User>(400, message: "Email and password cannot be empty.");
+            if (dto is null)
+                return new BaseResponse<User>(400);
+            var login = dto.NameOrEmail.Trim();
 
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == dto.Email);
+            if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(dto.Password))
+                return new BaseResponse<User>(400, message: "Email and password cannot be empty.");
+            var user = login.Contains('@')
+                ? (!new EmailAddressAttribute().IsValid(login)) 
+                       ? null : await _context.Users.FirstOrDefaultAsync(u => u.Email == login)
+                : await _context.Users.FirstOrDefaultAsync(u => u.Name == login);
+
             if (user == null)
                 return new BaseResponse<User>(404, message: "User not found.");
 
@@ -47,6 +66,27 @@ namespace Portifolio.Server.Services.User_Services
                 return new BaseResponse<User>(403, message: "Invalid password.");
 
             return new BaseResponse<User>(200, data: user);
+        }
+
+        public bool ValidPassword(string password)
+        {
+            if (password.Count() < 8)
+                return false;
+
+            int num = 0;
+            if (password.Any(char.IsUpper))
+                num++;
+
+            if (password.Any(char.IsLower))
+                num++;
+
+            if (password.Any(char.IsDigit))
+                num++;
+
+            if (password.Any(c => char.IsPunctuation(c) || char.IsSymbol(c)))
+                num++;
+
+            return num >= 3;
         }
     }
 }

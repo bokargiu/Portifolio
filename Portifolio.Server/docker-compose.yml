@@ -1,0 +1,50 @@
+﻿services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-portifolio
+    restart: always
+    secrets:
+      - db-root-pw
+      - db-user
+      - db-user-pw
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: run/secrets/db-root-pw
+      MYSQL_DATABASE: Portifolio
+      MYSQL_USER_FILE: run/secrets/db-user
+      MYSQL_PASSWORD_FILE: run/secrets/db-user-pw
+    ports:
+    - "3306:3306"
+    volumes:
+    - mysql-portifolio:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-padmin"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: .
+    container_name: api-portifolio
+    restart: unless-stopped
+    ports:
+     - "5269:8080"
+    env_file: 
+     - ./secrets/.env
+    volumes:
+     - aspnet-portifolio:/root/.aspnet/DataProtection-Keys
+     
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+volumes:
+  mysql-portifolio:
+  aspnet-portifolio:
+    
+secrets:
+  root-pw:
+    file: ./secrets/db-root-pw
+  db-pw:
+    file: ./secrets/db-user-pw
+  db-user:
+    file: ./secrets/db-user

@@ -19,7 +19,7 @@ namespace Portifolio.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(TemplateUser dto)
+        public async Task<IActionResult> Register(TemplateUser dto)
         {
             var created = await _user.CreateUser(dto);
 
