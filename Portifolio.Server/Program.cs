@@ -25,7 +25,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-var connectionString = builder.Configuration.GetConnectionString("Connection");
+var connectionString = builder.Configuration["ConnectionStrings:Connection"];
 builder.Services.AddDbContext<DB>(options =>
 {
     options.UseMySQL(connectionString);
