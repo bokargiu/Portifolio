@@ -42,9 +42,9 @@ volumes:
   aspnet-portifolio:
     
 secrets:
-  root-pw:
+  db-root-pw:
     file: ./secrets/db-root-pw
-  db-pw:
+  db-user-pw:
     file: ./secrets/db-user-pw
   db-user:
     file: ./secrets/db-user
