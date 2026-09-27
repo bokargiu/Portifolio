@@ -24,7 +24,6 @@
 
   api:
     build: .
-    context: ..
     container_name: api-portifolio
     restart: unless-stopped
     ports:
