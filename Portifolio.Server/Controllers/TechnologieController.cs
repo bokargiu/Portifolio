@@ -29,6 +29,18 @@ namespace Portifolio.Server.Controllers
             var result = await _tf.Post(dto);
             return result.StatusCode == 200 ? Ok() : BadRequest();
         }
+        [HttpPost("Range")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Post(List<TemplateTechInfo> dtos)
+        {
+            List<string> strings = new List<string>();
+            foreach (var dto in dtos)
+            {
+                var result = await _tf.Post(dto);
+                strings.Add($"{result.StatusCode} | {result.Message}\n");
+            }
+            return Ok(strings);
+        }
         [HttpPut("id:{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Put(string id, TemplateTechInfo dto)

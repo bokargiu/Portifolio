@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Portifolio.Server.Services.Project_Services;
 using Portifolio.Server.DTOs.Projects;
-using Microsoft.AspNetCore.Authorization;
+using Portifolio.Server.DTOs.TechInfos;
+using Portifolio.Server.Services.Project_Services;
 
 namespace Portifolio.Server.Controllers
 {
@@ -34,6 +35,18 @@ namespace Portifolio.Server.Controllers
         {
             var response = await service.Create(dto);
             return StatusCode(response.StatusCode, response.StatusCode == 201 ? response.Data : response.Message);
+        }
+        [HttpPost("Range")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Post(List<TemplateProject> dtos)
+        {
+            List<string> strings = new List<string>();
+            foreach (var dto in dtos)
+            {
+                var result = await service.Create(dto);
+                strings.Add($"{result.StatusCode} | {result.Message}\n");
+            }
+            return Ok(strings);
         }
         [HttpPut("id:{id}")]
         [Authorize(Roles = "Admin")]

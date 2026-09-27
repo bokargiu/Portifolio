@@ -38,7 +38,7 @@ namespace Portifolio.Server.Services.Project_Services
 
             await _context.Projects.AddAsync(project);
             await _context.SaveChangesAsync();
-            return new BaseResponse<Project>(201, data: project);
+            return new BaseResponse<Project>(201, message: project.Name, data: project);
         }
         public async Task<BaseResponse<Project>> Update(string idStr, TemplateProject dto)
         {

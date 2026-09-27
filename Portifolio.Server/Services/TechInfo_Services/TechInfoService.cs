@@ -36,7 +36,7 @@ namespace Portifolio.Server.Services.TechInfo_Services
 
             await _context.Technologies.AddAsync(tf);
             await _context.SaveChangesAsync();
-            return new BaseResponse(200);
+            return new BaseResponse(201, message: dto.Title);
         }
         public async Task<BaseResponse> Put(string id, TemplateTechInfo dto)
         {
