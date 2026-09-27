@@ -23,7 +23,9 @@
       retries: 10
 
   api:
-    build: .
+    build: 
+      context: .
+      dockerfile: Portifolio.Server/Dockerfile
     container_name: api-portifolio
     restart: unless-stopped
     ports:
