@@ -2,6 +2,8 @@
 # .NET / Visual Studio
 # =========================
 
+/secrets/
+
 *.rsuser
 *.suo
 *.user

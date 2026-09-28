@@ -71,6 +71,11 @@ app.MapGet("/api/", () => "API está funcionando!");
 app.UseCors("AllowAll");
 app.UseDefaultFiles();
 app.MapStaticAssets();
+using (var scope = app.Services.CreateScope())
+{ // Adicionando Migrações
+    var db = scope.ServiceProvider.GetRequiredService<DB>();
+    db.Database.Migrate();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
