@@ -38,7 +38,7 @@ namespace Portifolio.Server.Services.User_Services
             var user = new User(true);
             user.Email = dto.Email.Trim();
             user.Name = dto.Name.Trim();
-            user.Type = TypeUser.Admin;
+            user.Type = TypeUser.User;
             user.Password = Argon2.Hash(dto.Password, timeCost: 5);
 
             _context.Users.Add(user);
