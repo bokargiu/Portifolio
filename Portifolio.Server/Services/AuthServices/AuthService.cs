@@ -29,7 +29,8 @@ namespace Portifolio.Server.Services.AuthServices
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.PrimarySid, user.Id.ToString()),
-                    new Claim(ClaimTypes.Name, user.Email),
+                    new Claim(ClaimTypes.Name, user.Name),
+                    new Claim(ClaimTypes.Email, user.Email),
                     new Claim(ClaimTypes.Role, user.Type.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddHours(12),
