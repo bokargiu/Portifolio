@@ -2,7 +2,7 @@
 # .NET / Visual Studio
 # =========================
 
-/Portifolio.Server/secrets/
+Portifolio.Server/secrets/
 /secrets/
 
 *.rsuser
