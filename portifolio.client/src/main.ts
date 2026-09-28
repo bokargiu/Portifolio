@@ -14,5 +14,5 @@ bootstrapApplication(AppComponent, {
   ]
 }).catch(err => console.error(err));
 
-export const api = "/api/";
+export const api = "https://bokargiu.com.br/api/";
 
