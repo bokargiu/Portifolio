@@ -14,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddSwaggerGen();
-
+#region Cors
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", builder =>
@@ -24,13 +24,15 @@ builder.Services.AddCors(options =>
                .AllowAnyHeader();
     });
 });
-
+#endregion
+#region Database
 var connectionString = builder.Configuration["ConnectionStrings:Connection"];
 builder.Services.AddDbContext<DB>(options =>
 {
     options.UseMySQL(connectionString);
 });
-
+#endregion
+#region Jwt
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -51,15 +53,21 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             )
         };
     });
+#endregion
+#region Volume Medias
+var mediaPath = Path.Combine(builder.Environment.ContentRootPath, "media-portifolio");
+
+Directory.CreateDirectory(mediaPath);
+#endregion
 
 builder.Services.AddHttpContextAccessor();
-
+#region Services Scoped
 builder.Services.AddScoped<DB>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITechInfoService, TechInfoService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
-
+#endregion
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
