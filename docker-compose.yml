@@ -34,6 +34,7 @@
      - ./Portifolio.Server/secrets/.env
     volumes:
      - aspnet-portifolio:/root/.aspnet/DataProtection-Keys
+     - ./media-portifolio:/app/media/
      
     depends_on:
       mysql:
@@ -42,6 +43,7 @@
 volumes:
   mysql-portifolio:
   aspnet-portifolio:
+  media-portifolio:
     
 secrets:
   db-root-pw:
