@@ -9,6 +9,7 @@ namespace Portifolio.Server.Models
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public string Url { get; set; } = string.Empty;
+        public string? ImageUrl { get; set; } = null;
         public ProjectType Type { get; set; } = ProjectType.Em_Andamento;
         public DateOnly Start { get; set; } = DateOnly.FromDateTime(DateTime.Now);
         public DateOnly? End { get; set; } = null;
@@ -20,6 +21,7 @@ namespace Portifolio.Server.Models
             Name = dto.Name;
             Description = dto.Description;
             Url = dto.Url ?? string.Empty;
+            ImageUrl = string.IsNullOrEmpty(dto.ImageUrl) ? null : dto.ImageUrl.Trim();
             Type = dto.Type ?? ProjectType.Em_Andamento;
             Start = dto.Start ?? DateOnly.FromDateTime(DateTime.Now);
             End = dto.End;
