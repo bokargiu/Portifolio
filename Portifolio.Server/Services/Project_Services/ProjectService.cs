@@ -42,22 +42,32 @@ namespace Portifolio.Server.Services.Project_Services
         }
         public async Task<BaseResponse<Project>> Update(string idStr, TemplateProject dto)
         {
-            if (dto is null 
-                || string.IsNullOrEmpty(dto.Name) 
-                || string.IsNullOrEmpty(dto.Description) 
-                || dto.IconsTech is null)
-                return new BaseResponse<Project>(400, message: "Project is null");
+            if (dto is null ||
+                string.IsNullOrWhiteSpace(dto.Name) ||
+                string.IsNullOrWhiteSpace(dto.Description) ||
+                dto.IconsTech is null)
+            {
+                return new BaseResponse<Project>(
+                    400,
+                    message: "Dados do projeto inválidos");
+            }
 
             var baseProject = await Get(idStr);
+
             if (baseProject.StatusCode != 200)
                 return baseProject;
 
-            Project project = new Project(dto);
-            project.Id = baseProject.Data!.Id;
+            var project = baseProject.Data!;
 
-            _context.Projects.Update(project);
+            project.Name = dto.Name.Trim();
+            project.Description = dto.Description.Trim();
+            project.IconsTech = dto.IconsTech;
+
             await _context.SaveChangesAsync();
-            return new BaseResponse<Project>(200, data: project);
+
+            return new BaseResponse<Project>(
+                200,
+                data: project);
         }
     }
 }
