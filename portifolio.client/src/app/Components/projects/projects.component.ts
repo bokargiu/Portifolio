@@ -7,6 +7,7 @@ interface Project {
   name: string;
   description: string;
   url: string;
+  imageUrl: string;
   type: number;
   start: string;
   end: string;

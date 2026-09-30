@@ -2,12 +2,14 @@
     <h2>Projetos</h2>
     <div class="Projects-container">
         @for (project of projects; track project.id) {
-            <div class="project-content" (click)="openProject(project.url)">
-                <h3>{{project.name}}</h3>
-                <div class="techs">
-                    @for (tech of project.iconsTech; track $index) {
-                        <i [class]="tech"></i>
-                    }
+            <div class="project-image" style="background-image: url({{project.imageUrl}});">
+                <div class="project-content" (click)="openProject(project.url)">
+                    <h3>{{project.name}}</h3>
+                    <div class="techs">
+                        @for (tech of project.iconsTech; track $index) {
+                            <i [class]="tech"></i>
+                        }
+                    </div>
                 </div>
             </div>
         }
