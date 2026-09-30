@@ -22,6 +22,7 @@
             background-position: center;
             z-index: 1;
             background-size: contain;
+            border-radius: 5px;
 
             .project-content {
             display: flex;
@@ -29,8 +30,8 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: rgba(0, 0, 0, 0.573);
-            border: #00000042 1px dashed;
+            background-color: #00000092;
+            border: #3b3b3bbd 2px dashed;
             border-radius: 5px;
             height: 160px;
             text-shadow: 2px 2px 10px #ffffff35;
