@@ -2,6 +2,7 @@
 using Portifolio.Server.Database;
 using Portifolio.Server.DTOs;
 using Portifolio.Server.DTOs.Projects;
+using Portifolio.Server.Enums;
 using Portifolio.Server.Models;
 
 namespace Portifolio.Server.Services.Project_Services
@@ -62,6 +63,11 @@ namespace Portifolio.Server.Services.Project_Services
             project.Name = dto.Name;
             project.Description = dto.Description;
             project.IconsTech = dto.IconsTech;
+            project.Start = dto.Start is null ? project.Start :(DateOnly) dto.Start;
+            project.End = dto.End is null ? project.End :(DateOnly) dto.End;
+            project.Url = string.IsNullOrEmpty(dto.Url) ? project.Url : dto.Url;
+            project.ImageUrl = string.IsNullOrEmpty(dto.ImageUrl) ? project.ImageUrl : dto.ImageUrl;
+            project.Type = dto.Type is null ? project.Type : (ProjectType)dto.Type;
 
             await _context.SaveChangesAsync();
 
