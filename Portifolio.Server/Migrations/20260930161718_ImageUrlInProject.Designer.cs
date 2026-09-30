@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Portifolio.Server.Database;
 
@@ -10,9 +11,11 @@ using Portifolio.Server.Database;
 namespace Portifolio.Server.Migrations
 {
     [DbContext(typeof(DB))]
-    partial class DatabaseModelSnapshot : ModelSnapshot
+    [Migration("20260930161718_ImageUrlInProject")]
+    partial class ImageUrlInProject
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
