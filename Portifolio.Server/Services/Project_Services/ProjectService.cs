@@ -59,8 +59,8 @@ namespace Portifolio.Server.Services.Project_Services
 
             var project = baseProject.Data!;
 
-            project.Name = dto.Name.Trim();
-            project.Description = dto.Description.Trim();
+            project.Name = dto.Name;
+            project.Description = dto.Description;
             project.IconsTech = dto.IconsTech;
 
             await _context.SaveChangesAsync();
