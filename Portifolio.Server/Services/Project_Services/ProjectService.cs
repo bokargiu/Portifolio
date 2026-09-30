@@ -20,7 +20,7 @@ namespace Portifolio.Server.Services.Project_Services
         }
         public async Task<BaseResponse<Project>> Get(string idStr)
         {
-            if (string.IsNullOrEmpty(idStr) || Guid.TryParse(idStr, out Guid id))
+            if (string.IsNullOrEmpty(idStr) || !Guid.TryParse(idStr, out Guid id))
                 return new BaseResponse<Project>(400, message: "Invalid id");
             var project = await _context.Projects.FirstOrDefaultAsync(p => p.Id == id);
             return project is null ?
