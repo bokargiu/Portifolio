@@ -1,5 +1,8 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 import * as THREE from 'three';
+import { AppRoutingModule } from '../../app-routing.module';
 
 interface TetraAnimation {
   mesh: THREE.Mesh;
@@ -13,7 +16,11 @@ interface TetraAnimation {
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [],
+  imports: [
+    MatButtonModule,
+    MatIconModule,
+    AppRoutingModule
+],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss'
 })
