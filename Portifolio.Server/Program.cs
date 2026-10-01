@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Portifolio.Server.Database;
@@ -7,7 +9,9 @@ using Portifolio.Server.Services.AuthServices;
 using Portifolio.Server.Services.Project_Services;
 using Portifolio.Server.Services.TechInfo_Services;
 using Portifolio.Server.Services.User_Services;
+using System.Security.Claims;
 using System.Text;
+using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,7 +63,68 @@ var mediaPath = Path.Combine(builder.Environment.ContentRootPath, "media-portifo
 
 Directory.CreateDirectory(mediaPath);
 #endregion
+#region Rate Limiter
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders =
+        ForwardedHeaders.XForwardedFor |
+        ForwardedHeaders.XForwardedProto;
 
+    options.KnownProxies.Add(
+        IPAddress.Parse("187.75.67.81")
+    );
+});
+
+builder.Services.AddRateLimiter(options =>
+{
+    options.AddTokenBucketLimiter("BruteForceProtection", opt =>
+    {
+        opt.TokenLimit = 10;
+        opt.ReplenishmentPeriod = TimeSpan.FromSeconds(30);
+        opt.TokensPerPeriod = 5;
+        opt.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+        opt.QueueLimit = 0;
+    });
+
+    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(
+        httpContext =>
+        {
+            var user = httpContext.User;
+
+            if (user.Identity?.IsAuthenticated == true)
+            {
+                var isAdmin = user.IsInRole("Admin");
+
+                var userId = user.FindFirst("PrimarySid")?.Value;
+
+                if (string.IsNullOrWhiteSpace(userId))
+                    userId = "unknown";
+
+                return RateLimitPartition.GetFixedWindowLimiter(
+                    partitionKey: userId,
+                    factory: _ => new FixedWindowRateLimiterOptions
+                    {
+                        PermitLimit = isAdmin ? 30 : 10,
+                        QueueLimit = 0,
+                        Window = TimeSpan.FromSeconds(30),
+                        AutoReplenishment = true
+                    });
+            }
+
+            return RateLimitPartition.GetTokenBucketLimiter(
+                partitionKey: httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+                factory: _ => new TokenBucketRateLimiterOptions
+                {
+                    TokenLimit = 10,
+                    TokensPerPeriod = 5,
+                    ReplenishmentPeriod = TimeSpan.FromMinutes(1),
+                    QueueLimit = 0
+                });
+        });
+
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+});
+#endregion
 builder.Services.AddHttpContextAccessor();
 #region Services Scoped
 builder.Services.AddScoped<DB>();
@@ -77,6 +142,7 @@ var app = builder.Build();
 app.MapGet("/api/", () => "API está funcionando!");
 
 app.UseCors("AllowAll");
+app.UseForwardedHeaders();
 app.UseDefaultFiles();
 app.MapStaticAssets();
 using (var scope = app.Services.CreateScope())
