@@ -17,7 +17,7 @@
         gap: 20px;
         grid-template-columns: repeat(3, minmax(0, 1fr));
 
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
             grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 
@@ -26,14 +26,17 @@
         }
 
         .project-image{
+            margin: 5px;
             background-repeat: no-repeat;
             background-position: center;
             z-index: 1;
             background-size: contain;
+            background-clip: border-box;
             border-radius: 5px;
 
             .project-content {
             display: flex;
+            height: 190px;
             z-index: 2;
             flex-direction: column;
             justify-content: center;
@@ -41,10 +44,17 @@
             background-color: #00000092;
             border: #3b3b3bbd 2px dashed;
             border-radius: 5px;
-            height: 160px;
             text-shadow: 2px 2px 10px #ffffff35;
             color: #ffffffd3;
             cursor: pointer;
+
+            @media (max-width: 900px) {
+                    height: 150px;
+            }
+
+            @media (max-width: 500px) {
+                    height: 150px;
+            }
 
             h3 {
                 font-size: 24px;
