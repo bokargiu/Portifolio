@@ -80,9 +80,9 @@ builder.Services.AddRateLimiter(options =>
 {
     options.AddTokenBucketLimiter("BruteForceProtection", opt =>
     {
-        opt.TokenLimit = 10;
-        opt.ReplenishmentPeriod = TimeSpan.FromSeconds(30);
-        opt.TokensPerPeriod = 5;
+        opt.TokenLimit = 4;
+        opt.ReplenishmentPeriod = TimeSpan.FromMinutes(1);
+        opt.TokensPerPeriod = 2;
         opt.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
         opt.QueueLimit = 0;
     });
@@ -161,6 +161,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
+
+app.UseRateLimiter();
 
 app.UseAuthorization();
 
