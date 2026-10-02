@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Portifolio.Server.DTOs.Users;
 using Portifolio.Server.Services.AuthServices;
 using Portifolio.Server.Services.User_Services;
@@ -35,6 +36,7 @@ namespace Portifolio.Server.Controllers
         }
 
         [HttpPost("login")]
+        [EnableRateLimiting("BruteForceProtection")]
         public async Task<IActionResult> Login(LoginDTO dto)
         {
             var response = await _user.Login(dto);
