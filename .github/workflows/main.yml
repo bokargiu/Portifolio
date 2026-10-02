@@ -4,7 +4,7 @@ on:
   pull_request:
     types: [closed]
     branches:
-      - main
+      - master
 
 jobs:
   deploy:
@@ -57,4 +57,4 @@ jobs:
           ssh -o BatchMode=yes \
               -o StrictHostKeyChecking=no \
               ssh.bokargiu.com.br \
-              "cd ~/Portifolio/Portifolio && git pull --ff-only origin main && docker compose down && docker compose up -d --build"
+              "cd ~/Portifolio/Portifolio && git pull --ff-only origin master && docker compose down && docker compose up -d --build"
