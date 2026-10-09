@@ -166,7 +166,10 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 
-app.UseRateLimiter();
+if (!app.Environment.IsEnvironment("Testing"))
+{
+    app.UseRateLimiter();
+}
 
 app.UseAuthorization();
 

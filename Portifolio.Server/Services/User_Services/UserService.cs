@@ -30,9 +30,9 @@ namespace Portifolio.Server.Services.User_Services
             if (!new EmailAddressAttribute().IsValid(dto.Email.Trim()))
                 return new BaseResponse<User>(400, message: "This Email is not Valid");
 
-            var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == dto.Email.Trim() || u.Name == dto.Name.Trim());
+            var existingUser = await _context.Users.Where(u => u.Email.Equals(dto.Email.Trim()) || u.Name.Equals(dto.Name.Trim())).AnyAsync();
 
-            if (existingUser != null)
+            if (existingUser)
                 return new BaseResponse<User>(400, message: "A user with this email or name already exists.");
 
             var user = new User(true);
