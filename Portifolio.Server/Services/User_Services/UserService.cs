@@ -21,7 +21,7 @@ namespace Portifolio.Server.Services.User_Services
 
         public async Task<BaseResponse<User>> CreateUser(TemplateUser dto)
         {
-            if (dto == null || ValidPassword(dto.Password))
+            if (dto == null || !ValidPassword(dto.Password))
                 return new BaseResponse<User>(400, message: "Invalid user data.");
 
             if (new EmailAddressAttribute().IsValid(dto.Name.Trim()))

@@ -82,7 +82,7 @@ builder.Services.AddRateLimiter(options =>
     {
         opt.TokenLimit = 4;
         opt.ReplenishmentPeriod = TimeSpan.FromMinutes(1);
-        opt.TokensPerPeriod = 2;
+        opt.TokensPerPeriod = 3;
         opt.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
         opt.QueueLimit = 0;
     });
@@ -105,8 +105,8 @@ builder.Services.AddRateLimiter(options =>
                     partitionKey: userId,
                     factory: _ => new FixedWindowRateLimiterOptions
                     {
-                        PermitLimit = isAdmin ? 30 : 10,
-                        QueueLimit = 0,
+                        PermitLimit = isAdmin ? 30 : 15,
+                        QueueLimit = 3,
                         Window = TimeSpan.FromSeconds(30),
                         AutoReplenishment = true
                     });
@@ -116,8 +116,8 @@ builder.Services.AddRateLimiter(options =>
                 partitionKey: httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown",
                 factory: _ => new TokenBucketRateLimiterOptions
                 {
-                    TokenLimit = 10,
-                    TokensPerPeriod = 5,
+                    TokenLimit = 15,
+                    TokensPerPeriod = 15,
                     ReplenishmentPeriod = TimeSpan.FromMinutes(1),
                     QueueLimit = 0
                 });
@@ -146,8 +146,10 @@ app.UseCors("AllowAll");
 app.UseForwardedHeaders();
 app.UseDefaultFiles();
 app.MapStaticAssets();
-using (var scope = app.Services.CreateScope())
-{ // Adicionando Migrações
+
+if(!app.Environment.IsEnvironment("Testing"))
+{// Adicionando Migrações
+    using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<DB>();
     db.Database.Migrate();
 }
@@ -173,3 +175,5 @@ app.MapControllers();
 app.MapFallbackToFile("/index.html");
 
 app.Run();
+
+public partial class Program { }

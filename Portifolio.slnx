@@ -4,4 +4,5 @@
     <Deploy />
   </Project>
   <Project Path="Portifolio.Server/Portifolio.Server.csproj" />
+  <Project Path="Portifolio.Tests/Portifolio.Tests.csproj" />
 </Solution>
