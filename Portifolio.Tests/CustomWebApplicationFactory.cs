@@ -14,6 +14,7 @@ namespace Portifolio.Tests
 {
     public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     {
+        private readonly string database = $"PortifolioTests_{Guid.NewGuid():N}";
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
             builder.UseEnvironment("Testing");
@@ -33,7 +34,7 @@ namespace Portifolio.Tests
 
                 services.AddDbContext<DB>(options =>
                 {
-                    options.UseInMemoryDatabase($"PortifolioTests_{Guid.NewGuid()}");
+                    options.UseInMemoryDatabase(database);
                 });
             });
         }
