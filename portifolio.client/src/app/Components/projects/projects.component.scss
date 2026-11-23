@@ -30,13 +30,19 @@
             background-repeat: no-repeat;
             background-position: center;
             z-index: 1;
-            background-size: contain;
+            background-size: cover;
             background-clip: border-box;
             border-radius: 5px;
+            height: 190px;
+
+            @media (max-width: 900px) {
+                height: 150px;
+            }
 
             .project-content {
             display: flex;
-            height: 190px;
+            height: 100%;
+            box-sizing: border-box;
             z-index: 2;
             flex-direction: column;
             justify-content: center;
@@ -47,14 +53,6 @@
             text-shadow: 2px 2px 10px #ffffff35;
             color: #ffffffd3;
             cursor: pointer;
-
-            @media (max-width: 900px) {
-                    height: 150px;
-            }
-
-            @media (max-width: 500px) {
-                    height: 150px;
-            }
 
             h3 {
                 font-size: 24px;
